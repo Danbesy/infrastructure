@@ -1,0 +1,7 @@
+*.env
+*.log
+data
+etc
+logs
+*.pem
+whitelist.conf

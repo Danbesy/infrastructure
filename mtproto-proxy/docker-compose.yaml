@@ -1,0 +1,23 @@
+services:
+  mtproto-proxy:
+    image: telegrammessenger/proxy:latest
+    container_name: mtproto-proxy
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "11443:443"
+    environment:
+      # openssl rand -hex 16
+      - SECRET=${MTPROTO_SECRET}
+      - TAG=${MTPROTO_TAG}
+    networks:
+      mtproto-proxy-network:
+        ipv4_address: 172.20.0.10
+
+networks:
+  mtproto-proxy-network:
+    name: mtproto-proxy-network
+    external: true
+
+

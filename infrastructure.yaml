@@ -1,0 +1,29 @@
+name: infra
+
+services:
+  network-init:
+    image: alpine:latest
+    container_name: infra-network-init
+    command: "true"
+    deploy:
+      replicas: 0
+    networks:
+      - proxy-network
+      - mtproto-proxy-network
+
+networks:
+  proxy-network:
+    name: proxy-network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.25.0.0/24
+          gateway: 172.25.0.1
+
+  mtproto-proxy-network:
+    name: mtproto-proxy-network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+          gateway: 172.20.0.1
