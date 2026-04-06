@@ -3,13 +3,24 @@ services:
     image: stalwartlabs/stalwart:latest
     container_name: stalwart-mail
     restart: unless-stopped
+    ports:
+      - "25:25"
+      - "465:465"
+      - "993:993"
     volumes:
       - ./data:/opt/stalwart/data
       - ./etc:/opt/stalwart/etc
       - ./logs:/opt/stalwart/logs
     networks:
-      - proxy-network
+      proxy-network:
+        ipv4_address: 172.25.0.10
+      mail-network:
+        ipv4_address: 172.23.0.10
 
 networks:
   proxy-network:
+    name: proxy-network
+    external: true
+  mail-network:
+    name: mail-network
     external: true
