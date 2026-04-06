@@ -1,0 +1,61 @@
+services:
+  dendrite-init:
+      image: matrixdotorg/dendrite-monolith:latest
+      container_name: dendrite-init
+      volumes:
+        - ./:/mnt
+      entrypoint: /bin/sh
+      command: >
+        -c "if [ ! -f /mnt/matrix_key.pem ]; then
+              /usr/bin/generate-keys --private-key /mnt/matrix_key.pem;
+              echo 'Ключ создан успешно';
+            else
+              echo 'Ключ уже существует, пропускаю...';
+            fi"
+
+  dendrite:
+    image: matrixdotorg/dendrite-monolith:latest
+    container_name: dendrite
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_started
+      dendrite-init:
+        condition: service_started
+    command: ["--config", "/etc/dendrite/dendrite.yaml", "-really-enable-open-registration"]
+    volumes:
+    - ./dendrite.yaml:/etc/dendrite/dendrite.yaml:ro
+    - ./matrix_key.pem:/etc/dendrite/matrix_key.pem:ro
+    - ./storage:/var/dendrite/
+    networks:
+      matrix-public-network:
+        ipv4_address: 172.21.0.10
+      matrix-private-network:
+        ipv4_address: 172.22.0.10
+      proxy-network:
+        ipv4_address: 172.25.0.20
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: dendrite
+      POSTGRES_PASSWORD: dendrite
+      POSTGRES_DB: dendrite
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    networks:
+      matrix-private-network:
+        ipv4_address: 172.22.0.20
+
+networks:
+  matrix-public-network:
+    name: matrix-public-network
+    external: true
+  matrix-private-network:
+    name: matrix-private-network
+    external: true
+  proxy-network:
+    name: proxy-network
+    external: true
