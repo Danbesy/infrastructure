@@ -10,6 +10,9 @@ services:
     networks:
       - proxy-network
       - mtproto-proxy-network
+      - matrix-public-network
+      - matrix-private-network
+      - mail-network
 
 networks:
   proxy-network:
@@ -27,3 +30,28 @@ networks:
       config:
         - subnet: 172.20.0.0/24
           gateway: 172.20.0.1
+
+  matrix-public-network:
+    name: matrix-public-network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.21.0.0/24
+          gateway: 172.21.0.1
+
+  matrix-private-network:
+    name: matrix-private-network
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.22.0.0/24
+          gateway: 172.22.0.1
+
+  mail-network:
+    name: mail-network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.23.0.0/24
+          gateway: 172.23.0.1
