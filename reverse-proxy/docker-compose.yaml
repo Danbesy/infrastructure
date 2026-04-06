@@ -21,12 +21,13 @@ services:
       - ./whitelist.conf:/etc/nginx/snippets/whitelist.conf:ro
       - ./proxy_params.conf:/etc/nginx/snippets/proxy_params.conf:ro
       - ./proxy_ws.conf:/etc/nginx/snippets/proxy_ws.conf:ro
+      - ./matrix.conf:/etc/nginx/snippets/matrix.conf:ro
 
       # static content
       - ./reviews/:/var/www/reviews:ro
     networks:
       proxy-network:
-        ipv4_address: 172.25.0.10
+        ipv4_address: 172.25.0.100
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
