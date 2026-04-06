@@ -1,7 +1,17 @@
+# general
 *.env
 *.log
-data
-etc
-logs
 *.pem
+
+# reverse-proxy
 whitelist.conf
+
+# mail
+data/
+etc/
+logs/
+
+# matrix
+postgres_data/
+storage/
+dendrite.yaml
