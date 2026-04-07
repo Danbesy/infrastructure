@@ -1,16 +1,29 @@
 services:
   mtproto-proxy:
-    image: telegrammessenger/proxy:latest
+    image: telegrammessenger/proxy:2.0beta
     container_name: mtproto-proxy
     restart: unless-stopped
     env_file:
       - .env
+    volumes:
+      - ./backend.conf:/etc/telegram/backend.conf:ro
+      - /bin/true:/usr/local/bin/ip:ro
+    entrypoint: >
+      /usr/local/bin/mtproto-proxy
+      -p 2398
+      -H 443
+      -M 1
+      -C 5000
+      --aes-pwd /etc/telegram/hello-explorers-how-are-you-doing
+      -u root
+      /etc/telegram/backend.conf
+      --allow-skip-dh
+      --nat-info 172.20.0.10:${EXTERNAL_IP}
+      -S ${MTPROTO_SECRET}
+      -P ${MTPROTO_TAG}
+      --domain ${MTPROTO_DOMAIN}
     ports:
-      - "11443:443"
-    environment:
-      # openssl rand -hex 16
-      - SECRET=${MTPROTO_SECRET}
-      - TAG=${MTPROTO_TAG}
+      - "1443:443"
     networks:
       mtproto-proxy-network:
         ipv4_address: 172.20.0.10
@@ -19,5 +32,3 @@ networks:
   mtproto-proxy-network:
     name: mtproto-proxy-network
     external: true
-
-
