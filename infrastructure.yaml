@@ -20,24 +20,24 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 172.25.0.0/24
-          gateway: 172.25.0.1
+        - subnet: 172.20.0.0/24
+          gateway: 172.20.0.1
 
   mtproto-proxy-network:
     name: mtproto-proxy-network
     driver: bridge
     ipam:
       config:
-        - subnet: 172.20.0.0/24
-          gateway: 172.20.0.1
+        - subnet: 172.21.0.0/24
+          gateway: 172.21.0.1
 
   matrix-public-network:
     name: matrix-public-network
     driver: bridge
     ipam:
       config:
-        - subnet: 172.21.0.0/24
-          gateway: 172.21.0.1
+        - subnet: 172.22.0.0/24
+          gateway: 172.22.0.1
 
   matrix-private-network:
     name: matrix-private-network
@@ -45,13 +45,13 @@ networks:
     internal: true
     ipam:
       config:
-        - subnet: 172.22.0.0/24
-          gateway: 172.22.0.1
+        - subnet: 172.23.0.0/24
+          gateway: 172.23.0.1
 
   mail-network:
     name: mail-network
     driver: bridge
     ipam:
       config:
-        - subnet: 172.23.0.0/24
-          gateway: 172.23.0.1
+        - subnet: 172.24.0.0/24
+          gateway: 172.24.0.1

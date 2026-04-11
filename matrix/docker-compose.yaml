@@ -29,11 +29,11 @@ services:
     - ./storage:/var/dendrite/
     networks:
       matrix-public-network:
-        ipv4_address: 172.21.0.10
-      matrix-private-network:
         ipv4_address: 172.22.0.10
+      matrix-private-network:
+        ipv4_address: 172.23.0.10
       proxy-network:
-        ipv4_address: 172.25.0.20
+        ipv4_address: 172.20.0.20
 
   postgres:
     image: postgres:15-alpine
@@ -47,7 +47,7 @@ services:
       - ./postgres_data:/var/lib/postgresql/data
     networks:
       matrix-private-network:
-        ipv4_address: 172.22.0.20
+        ipv4_address: 172.23.0.20
 
 networks:
   matrix-public-network:

@@ -4,7 +4,7 @@ global:
   server_name: matrix.danbesy.com
   private_key: /etc/dendrite/matrix_key.pem
   database:
-    connection_string: postgres://POSTGRES_USER:POSTGRES_PASSWORD@172.22.0.20:5432/POSTGRES_DB?sslmode=disable
+    connection_string: postgres://POSTGRES_USER:POSTGRES_PASSWORD@172.23.0.20:5432/POSTGRES_DB?sslmode=disable
     max_open_conns: 90
     max_idle_conns: 5
     conn_max_lifetime: -1

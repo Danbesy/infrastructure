@@ -27,7 +27,7 @@ services:
       - ./reviews/:/var/www/reviews:ro
     networks:
       proxy-network:
-        ipv4_address: 172.25.0.100
+        ipv4_address: 172.20.0.100
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
