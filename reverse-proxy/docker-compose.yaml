@@ -14,14 +14,14 @@ services:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
 
       # snippets
-      - ./cloudflare.conf:/etc/nginx/snippets/cloudflare.conf:ro
-      - ./ssl.conf:/etc/nginx/snippets/ssl.conf:ro
-      - ./security-headers.conf:/etc/nginx/snippets/security-headers.conf:ro
-      - ./letsencrypt.conf:/etc/nginx/snippets/letsencrypt.conf:ro
-      - ./whitelist.conf:/etc/nginx/snippets/whitelist.conf:ro
-      - ./proxy_params.conf:/etc/nginx/snippets/proxy_params.conf:ro
-      - ./proxy_ws.conf:/etc/nginx/snippets/proxy_ws.conf:ro
-      - ./matrix.conf:/etc/nginx/snippets/matrix.conf:ro
+      - ./snippets/cloudflare.conf:/etc/nginx/snippets/cloudflare.conf:ro
+      - ./snippets/ssl.conf:/etc/nginx/snippets/ssl.conf:ro
+      - ./snippets/security-headers.conf:/etc/nginx/snippets/security-headers.conf:ro
+      - ./snippets/letsencrypt.conf:/etc/nginx/snippets/letsencrypt.conf:ro
+      - ./snippets/whitelist.conf:/etc/nginx/snippets/whitelist.conf:ro
+      - ./snippets/proxy_params.conf:/etc/nginx/snippets/proxy_params.conf:ro
+      - ./snippets/proxy_ws.conf:/etc/nginx/snippets/proxy_ws.conf:ro
+      - ./snippets/matrix.conf:/etc/nginx/snippets/matrix.conf:ro
 
       # static content
       - ./reviews/:/var/www/reviews:ro
