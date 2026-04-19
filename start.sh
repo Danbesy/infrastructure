@@ -28,6 +28,7 @@ docker compose -f mtproto-proxy/docker-compose.yaml down
 docker compose -f mail/docker-compose.yaml down
 docker compose -f matrix/docker-compose.yaml down
 docker compose -f reverse-proxy/docker-compose.yaml down
+docker compose -f reverse-proxy/website/docker-compose.yaml down
 
 echo -e "${GREEN}Stopping network orchestration...${NC}"
 echo -e "${GREEN}Остановка сетевой оркестрации...${NC}"
@@ -51,6 +52,7 @@ docker compose -f mtproto-proxy/docker-compose.yaml up -d --force-recreate
 docker compose -f mail/docker-compose.yaml up -d --force-recreate
 docker compose -f matrix/docker-compose.yaml up -d --force-recreate
 docker compose -f reverse-proxy/docker-compose.yaml up -d --force-recreate
+docker compose -f reverse-proxy/website/docker-compose.yaml up -d --force-recreate
 
 echo -e "${GREEN}All services started successfully!${NC}"
 echo -e "${GREEN}Все сервисы успешно запущены!${NC}"
