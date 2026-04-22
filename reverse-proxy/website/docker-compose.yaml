@@ -1,6 +1,6 @@
 services:
   danbesy-website:
-    build: .
+    image: danbesy/website:latest
     container_name: danbesy-website
     restart: unless-stopped
     networks:
