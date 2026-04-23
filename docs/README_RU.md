@@ -8,7 +8,8 @@
 ├── mtproto-proxy/       # Прокси для Telegram (MTProto)
 ├── reverse-proxy/       # Шлюз Nginx (Docker и системные сервисы)
 │   ├── snippets/        # Модульные конфиги Nginx (SSL, Cloudflare, Matrix)
-│   └── certs/           # Хранилище SSL сертификатов
+│   ├── certs/           # Хранилище SSL сертификатов
+│   └── website/         # Развертывание вебсайта (React, Next.js, Tailwind CSS)
 ├── infrastructure.yaml  # Файл сетевой оркестрации
 └── start.sh             # Скрипт глобальной автоматизации деплоя
 ```
@@ -18,10 +19,11 @@
   - Оркестрация: Docker & Docker Compose
   - Шлюз: Nginx
   - Сервисы:
-	* Mail (Stalwart)
-	* Matrix (Dendrite, PostgreSQL)
-	* Monitoring (Grafana, Prometheus, Node-Exporter)
+	* Mail: Stalwart
+	* Matrix: Dendrite, PostgreSQL
+	* Monitoring: Grafana, Prometheus, Node-Exporter
 	* Telegram MTProto Proxy
+  * Website: React 19, Next.js 15, Tailwind CSS
 
 ## 🚀 Быстрый старт
 1.  **Клонируйте репозиторий:**

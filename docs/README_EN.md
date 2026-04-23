@@ -8,7 +8,8 @@
 ├── mtproto-proxy/       # Telegram MTProto Proxy service
 ├── reverse-proxy/       # Nginx Reverse-Proxy gateway (Docker & Host services)
 │   ├── snippets/        # Modular Nginx configs (SSL, Cloudflare, Matrix)
-│   └── certs/           # SSL Certificates storage
+│   ├── certs/           # SSL Certificates storage
+│   └── website/         # Website deployment (React, Next.js, Tailwind CSS)
 ├── infrastructure.yaml  # Network orchestration file
 └── start.sh             # Global deployment automation script
 ```
@@ -18,11 +19,12 @@
 * Orchestration: Docker & Docker Compose
 * Gateway: Nginx
 * Services:
-	* Mail (Stalwart)
-	* Matrix (Dendrite, PostgreSQL)
-	* Monitoring (Grafana, Prometheus, Node-Exporter)
+	* Mail: Stalwart
+	* Matrix: Dendrite, PostgreSQL
+	* Monitoring: Grafana, Prometheus, Node-Exporter
 	* Telegram MTProto Proxy
-	* Nginx (Reverse-Proxy)
+	* Nginx: Reverse-Proxy
+  * Website: React 19, Next.js 15, Tailwind CSS
 
 ## 🚀 Quick Start
 1.  **Clone the repository:**
