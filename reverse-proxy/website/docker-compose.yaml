@@ -1,6 +1,6 @@
 services:
   danbesy-website:
-    image: danbesy/website:latest
+    image: ${DOCKER_IMAGE}:${IMAGE_TAG}
     container_name: danbesy-website
     restart: unless-stopped
     networks:
