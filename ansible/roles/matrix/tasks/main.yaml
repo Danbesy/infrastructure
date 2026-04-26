@@ -1,0 +1,17 @@
+- name: Generate Dendrite config from template
+  ansible.builtin.template:
+    src: dendrite.yaml.j2
+    dest: "{{ project_base_dir }}/matrix/dendrite.yaml"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0640'
+  become: true
+  notify: restart matrix stack
+
+- name: Start Matrix stack with Docker Compose V2
+  community.docker.docker_compose_v2:
+    project_src: "{{ project_base_dir }}/matrix"
+    state: present
+    pull: always
+    wait: false
+  become: true
