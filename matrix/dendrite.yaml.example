@@ -1,7 +1,7 @@
 version: 2
 
 global:
-  server_name: matrix.danbesy.com
+  server_name: MATRIX_DOMAIN
   private_key: /etc/dendrite/matrix_key.pem
   database:
     connection_string: postgres://POSTGRES_USER:POSTGRES_PASSWORD@172.23.0.20:5432/POSTGRES_DB?sslmode=disable
