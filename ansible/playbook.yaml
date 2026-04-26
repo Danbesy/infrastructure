@@ -1,0 +1,13 @@
+- name: Setup Infrastructure
+  hosts: servers
+  become: true
+  gather_facts: true
+  vars_files:
+    - vars/global/vault.yaml
+  vars:
+    project_base_dir: "/home/{{ ansible_user }}/infrastructure"
+  roles:
+    - docker
+    - git
+    - infra
+    - matrix
