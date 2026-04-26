@@ -1,0 +1,9 @@
+- name: Start Infrastructure orchestration with Docker Compose V2
+  community.docker.docker_compose_v2:
+    project_src: "{{ project_base_dir }}"
+    files:
+      - "infrastructure.yaml"
+    state: present
+    pull: always
+  become: true
+  notify: restart infrastructure orchestration
