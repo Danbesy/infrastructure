@@ -1,0 +1,17 @@
+- name: Ensure infrastructure directory exists
+  ansible.builtin.file:
+    path: "{{ project_base_dir }}"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0755'
+  become: true
+
+- name: Clone infrastructure repository
+  ansible.builtin.git:
+    repo: "{{ repo }}"
+    dest: "{{ project_base_dir }}"
+    version: main
+    force: yes
+  become: true
+  become_user: "{{ ansible_user }}"
