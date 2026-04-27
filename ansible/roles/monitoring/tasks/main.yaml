@@ -13,5 +13,5 @@
     project_src: "{{ project_base_dir }}/monitoring"
     state: present
     pull: always
-    wait: true
+    wait: false
   become: true
