@@ -1,0 +1,7 @@
+- name: Start Mail stack with Docker Compose V2
+  community.docker.docker_compose_v2:
+    project_src: "{{ project_base_dir }}/mail"
+    state: present
+    pull: always
+    wait: true
+  become: true
