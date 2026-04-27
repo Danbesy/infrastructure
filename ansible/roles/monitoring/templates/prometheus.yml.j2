@@ -1,0 +1,23 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'grafana'
+    static_configs:
+      - targets: ['127.0.0.1:13000']
+
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['127.0.0.1:19090']
+
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['127.0.0.1:19100']
+        labels:
+          instance: '{{ vault_prometheus_instance }}'
+          hostname: '{{ vault_prometheus_hostname }}'
+          env: '{{ vault_prometheus_env }}'
+  
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['127.0.0.1:18080']
