@@ -19,3 +19,6 @@ dendrite.yaml
 # ansible
 .vault_pass
 servers.ini
+
+# monitoring
+prometheus.yml
