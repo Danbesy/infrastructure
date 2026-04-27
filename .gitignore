@@ -16,11 +16,6 @@ postgres_data/
 storage/
 dendrite.yaml
 
-# website
-reverse-proxy/website/*
-!reverse-proxy/website/Dockerfile
-!reverse-proxy/website/docker-compose.yaml
-
 # ansible
 .vault_pass
 servers.ini
