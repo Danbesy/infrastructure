@@ -1,2 +1,1 @@
-project_base_dir: "{{ ansible_env.HOME }}/infrastructure"
 repo: "https://github.com/Danbesy/infrastructure.git"
