@@ -5,3 +5,4 @@ docker_packages:
   - docker-ce-cli
   - containerd.io
   - docker-compose-plugin
+  - python3-docker
