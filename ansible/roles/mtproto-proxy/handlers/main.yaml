@@ -1,0 +1,5 @@
+- name: restart mtproto-proxy stack
+  community.docker.docker_compose_v2:
+    project_src: "{{ project_base_dir }}/mtproto-proxy"
+    state: present
+  become: true
