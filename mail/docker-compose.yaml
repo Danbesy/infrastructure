@@ -1,6 +1,6 @@
 services:
   stalwart-mail:
-    image: stalwartlabs/stalwart:latest
+    image: stalwartlabs/stalwart:v0.16.3
     container_name: stalwart-mail
     restart: unless-stopped
     ports:
@@ -8,9 +8,8 @@ services:
       - "465:465"
       - "993:993"
     volumes:
-      - ./data:/opt/stalwart/data
-      - ./etc:/opt/stalwart/etc
-      - ./logs:/opt/stalwart/logs
+      - ./stalwart_config:/etc/stalwart
+      - ./stalwart_data:/var/lib/stalwart
     networks:
       proxy-network:
         ipv4_address: 172.20.0.10
