@@ -1,0 +1,5 @@
+- name: restart website stack
+  community.docker.docker_compose_v2:
+    project_src: "{{ project_base_dir }}/reverse-proxy/website"
+    state: present
+  become: true

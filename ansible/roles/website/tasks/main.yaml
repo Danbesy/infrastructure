@@ -1,0 +1,28 @@
+- name: Docker Deployment Process
+  block:
+    - name: Login to registry
+      community.docker.docker_login:
+        username: "{{ vault_docker_username }}"
+        password: "{{ vault_docker_password }}"
+
+    - name: Generate Website docker-compose from template
+      ansible.builtin.template:
+        src: docker-compose.yaml.j2
+        dest: "{{ project_base_dir }}/reverse-proxy/website/docker-compose.yaml"
+        mode: '0644'
+      become: true
+      notify: restart website stack
+
+    - name: Start Website stack with Docker Compose V2
+      community.docker.docker_compose_v2:
+        project_src: "{{ project_base_dir }}/reverse-proxy/website"
+        state: present
+        pull: always
+        wait: true
+      become: true
+
+  always:
+    - name: Ensure logout
+      community.docker.docker_login:
+        state: absent
+  become: true

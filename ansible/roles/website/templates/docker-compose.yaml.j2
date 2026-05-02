@@ -1,0 +1,23 @@
+services:
+  danbesy-website:
+    image: danbesy/website:latest
+    container_name: danbesy-website
+    restart: unless-stopped
+    networks:
+      - proxy-network
+    environment:
+      - NODE_ENV=production
+      - PORT=8888
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  proxy-network:
+    external: true
