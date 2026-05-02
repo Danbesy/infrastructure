@@ -1,0 +1,39 @@
+- name: Generate whitelist config from template
+  ansible.builtin.template:
+    src: whitelist.conf.j2
+    dest: "{{ project_base_dir }}/reverse-proxy/snippets/whitelist.conf"
+    mode: '0644'
+  become: true
+  notify: restart reverse-proxy stack
+
+- name: Ensure certificate directories exist
+  ansible.builtin.file:
+    path: "{{ project_base_dir }}/reverse-proxy/certs/{{ item.provider }}/{{ item.domain }}"
+    state: directory
+    mode: '0755'
+  become: true
+  loop: "{{ ssl_certs }}"
+
+- name: Deploy SSL certificates and keys
+  ansible.builtin.template:
+    src: "{{ item.tpl }}"
+    dest: "{{ project_base_dir }}/reverse-proxy/certs/{{ item.provider }}/{{ item.domain }}/{{ item.file }}"
+    mode: "{{ item.mode | default('0644') }}"
+  become: true
+  loop:
+    - { domain: 'danbesy.com', provider: 'cloudflare', file: 'cert.pem', tpl: 'cloudflare-danbesy.com-cert.pem.j2' }
+    - { domain: 'danbesy.com', provider: 'cloudflare', file: 'key.pem', tpl: 'cloudflare-danbesy.com-key.pem.j2', mode: '0640' }
+    - { domain: 'danbesy.com', provider: 'letsencrypt', file: 'fullchain.pem', tpl: 'letsencrypt-danbesy.com-fullchain.pem.j2' }
+    - { domain: 'danbesy.com', provider: 'letsencrypt', file: 'key.pem', tpl: 'letsencrypt-danbesy.com-key.pem.j2', mode: '0640' }
+    
+    - { domain: 'danbesy.lol', provider: 'cloudflare', file: 'cert.pem', tpl: 'cloudflare-danbesy.lol-cert.pem.j2' }
+    - { domain: 'danbesy.lol', provider: 'cloudflare', file: 'key.pem', tpl: 'cloudflare-danbesy.lol-key.pem.j2', mode: '0640' }
+  notify: restart reverse-proxy stack
+
+- name: Start Reverse-Proxy stack with Docker Compose V2
+  community.docker.docker_compose_v2:
+    project_src: "{{ project_base_dir }}/reverse-proxy"
+    state: present
+    pull: always
+    wait: true
+  become: true
