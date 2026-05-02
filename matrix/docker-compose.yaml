@@ -1,6 +1,6 @@
 services:
   dendrite-init:
-      image: matrixdotorg/dendrite-monolith:latest
+      image: matrixdotorg/dendrite-monolith:v0.15.2
       container_name: dendrite-init
       volumes:
         - ./:/mnt
@@ -14,7 +14,7 @@ services:
             fi"
 
   dendrite:
-    image: matrixdotorg/dendrite-monolith:latest
+    image: matrixdotorg/dendrite-monolith:v0.15.2
     container_name: dendrite
     restart: unless-stopped
     depends_on:
