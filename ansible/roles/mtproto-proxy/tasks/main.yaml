@@ -1,9 +1,7 @@
-- name: Generate MTProto-Proxy config from template
+- name: Generate MTProto-Proxy docker-compose from template
   ansible.builtin.template:
     src: docker-compose.yaml.j2
     dest: "{{ project_base_dir }}/mtproto-proxy/docker-compose.yaml"
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
     mode: '0644'
   become: true
   notify: restart mtproto-proxy stack

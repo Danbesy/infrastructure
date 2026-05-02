@@ -2,8 +2,6 @@
   ansible.builtin.template:
     src: prometheus.yml.j2
     dest: "{{ project_base_dir }}/monitoring/prometheus.yml"
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
     mode: '0644'
   become: true
   notify: restart monitoring stack

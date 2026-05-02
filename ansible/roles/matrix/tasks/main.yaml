@@ -2,9 +2,7 @@
   ansible.builtin.template:
     src: dendrite.yaml.j2
     dest: "{{ project_base_dir }}/matrix/dendrite.yaml"
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
-    mode: '0640'
+    mode: '0644'
   become: true
   notify: restart matrix stack
 

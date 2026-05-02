@@ -13,5 +13,5 @@
     dest: "{{ project_base_dir }}"
     version: main
     force: yes
-  become: true
-  become_user: "{{ ansible_user }}"
+    recursive: yes
+  become: false
