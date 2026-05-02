@@ -1,0 +1,15 @@
+- name: Setup Infrastructure
+  hosts: servers
+  gather_facts: true
+  vars_files:
+    - vars/global/vault.yaml
+    - vars/global/main.yaml
+  roles:
+    - { role: bootstrap, tags: ['bootstrap'] }
+    - { role: docker, tags: ['docker'], become: true }
+    - { role: git, tags: ['git'] }
+    - { role: infra, tags: ['infra'] }
+    - { role: matrix, tags: ['matrix'] }
+    - { role: mail, tags: ['mail'] }
+    - { role: monitoring, tags: ['monitoring'] }
+    - { role: mtproto-proxy, tags: ['mtproto-proxy'] }

@@ -1,0 +1,5 @@
+- name: restart matrix stack
+  community.docker.docker_compose_v2:
+    project_src: "{{ project_base_dir }}/matrix"
+    state: present
+  become: true

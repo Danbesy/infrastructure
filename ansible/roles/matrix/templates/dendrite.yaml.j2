@@ -1,10 +1,10 @@
 version: 2
 
 global:
-  server_name: MATRIX_DOMAIN
+  server_name: {{ vault_matrix_domain }}
   private_key: /etc/dendrite/matrix_key.pem
   database:
-    connection_string: postgres://POSTGRES_USER:POSTGRES_PASSWORD@172.23.0.20:5432/POSTGRES_DB?sslmode=disable
+    connection_string: postgres://{{ vault_matrix_postgres_user }}:{{ vault_matrix_postgres_password }}@172.23.0.20:5432/{{ vault_matrix_postgres_db }}?sslmode=disable
     max_open_conns: 90
     max_idle_conns: 5
     conn_max_lifetime: -1
@@ -43,15 +43,15 @@ sync_api:
 
 user_api:
   account_database:
-    connection_string: postgres://POSTGRES_USER:POSTGRES_PASSWORD@172.22.0.20:5432/POSTGRES_DB?sslmode=disable
+    connection_string: postgres://{{ vault_matrix_postgres_user }}:{{ vault_matrix_postgres_password }}@172.23.0.20:5432/{{ vault_matrix_postgres_db }}?sslmode=disable
 
 key_server:
   account_database:
-    connection_string: postgres://POSTGRES_USER:POSTGRES_PASSWORD@172.22.0.20:5432/POSTGRES_DB?sslmode=disable
+    connection_string: postgres://{{ vault_matrix_postgres_user }}:{{ vault_matrix_postgres_password }}@172.23.0.20:5432/{{ vault_matrix_postgres_db }}?sslmode=disable
 
 app_service_api:
   account_database:
-    connection_string: postgres://POSTGRES_USER:POSTGRES_PASSWORD@172.22.0.20:5432/POSTGRES_DB?sslmode=disable
+    connection_string: postgres://{{ vault_matrix_postgres_user }}:{{ vault_matrix_postgres_password }}@172.23.0.20:5432/{{ vault_matrix_postgres_db }}?sslmode=disable
 
 mscs:
   mscs: ["msc2836", "msc2946"]
