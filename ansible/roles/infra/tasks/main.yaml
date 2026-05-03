@@ -1,3 +1,11 @@
+- name: Generate Infrastructure orchestration docker-compose from template
+  ansible.builtin.template:
+    src: infrastructure.yaml.j2
+    dest: "{{ project_base_dir }}/infrastructure.yaml"
+    mode: '0644'
+  become: true
+  notify: restart infrastructure orchestration
+
 - name: Start Infrastructure orchestration with Docker Compose V2
   community.docker.docker_compose_v2:
     project_src: "{{ project_base_dir }}"

@@ -1,0 +1,57 @@
+name: infra
+
+services:
+  network-init:
+    image: alpine:latest
+    container_name: infra-network-init
+    command: "true"
+    deploy:
+      replicas: 0
+    networks:
+      - reverse-proxy-network
+      - mtproto-proxy-network
+      - matrix-public-network
+      - matrix-private-network
+      - mail-network
+
+networks:
+  reverse-proxy-network:
+    name: reverse-proxy-network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: {{ reverse_proxy_subnet }}.0/24
+          gateway: {{ reverse_proxy_gateway }}
+
+  mtproto-proxy-network:
+    name: mtproto-proxy-network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: {{ mtproto_proxy_subnet }}.0/24
+          gateway: {{ mtproto_proxy_gateway }}
+
+  matrix-public-network:
+    name: matrix-public-network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: {{ matrix_public_subnet }}.0/24
+          gateway: {{ matrix_public_gateway }}
+
+  matrix-private-network:
+    name: matrix-private-network
+    driver: bridge
+    internal: true
+    ipam:
+      config:
+        - subnet: {{ matrix_private_subnet }}.0/24
+          gateway: {{ matrix_private_gateway }}
+
+  mail-network:
+    name: mail-network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: {{ mail_subnet }}.0/24
+          gateway: {{ mail_gateway }}
