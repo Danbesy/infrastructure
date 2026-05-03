@@ -1,0 +1,11 @@
+reverse_proxy_subnet: "172.20.1"
+mtproto_proxy_subnet: "172.21.1"
+matrix_public_subnet: "172.22.1"
+matrix_private_subnet: "172.23.1"
+mail_subnet: "172.24.1"
+
+reverse_proxy_gateway: "172.20.1.1"
+mtproto_proxy_gateway: "172.21.1.1"
+matrix_public_gateway: "172.22.1.1"
+matrix_private_gateway: "172.23.1.1"
+mail_gateway: "172.24.1.1"

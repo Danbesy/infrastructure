@@ -1,0 +1,2 @@
+public_bind_address: 0.0.0.0
+monitoring_bind_address: 127.0.0.1
