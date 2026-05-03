@@ -1,7 +1,7 @@
 version: 2
 
 global:
-  server_name: {{ matrix_domain }}
+  server_name: {{ domains.matrix }}
   private_key: /etc/dendrite/matrix_key.pem
   database:
     connection_string: postgres://{{ vault_matrix_postgres_user }}:{{ vault_matrix_postgres_password }}@{{ matrix_private_subnet }}.20:5432/{{ vault_matrix_postgres_db }}?sslmode=disable
