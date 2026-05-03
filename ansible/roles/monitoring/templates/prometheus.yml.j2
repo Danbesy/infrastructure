@@ -4,20 +4,20 @@ global:
 scrape_configs:
   - job_name: 'grafana'
     static_configs:
-      - targets: ['127.0.0.1:13000']
+      - targets: ['127.0.0.1:{{ ports.grafana }}']
 
   - job_name: 'prometheus'
     static_configs:
-      - targets: ['127.0.0.1:19090']
+      - targets: ['127.0.0.1:{{ ports.prometheus }}']
 
   - job_name: 'node-exporter'
     static_configs:
-      - targets: ['127.0.0.1:19100']
+      - targets: ['{{ monitoring_bind_address }}:{{ ports.node_exporter }}']
         labels:
-          instance: '{{ vault_prometheus_instance }}'
-          hostname: '{{ vault_prometheus_hostname }}'
-          env: '{{ vault_prometheus_env }}'
+          hostname: '{{ inventory_hostname }}'
+          env: '{{ env }}'
+          region: '{{ region }}'
   
   - job_name: 'cadvisor'
     static_configs:
-      - targets: ['127.0.0.1:18080']
+      - targets: ['{{ monitoring_bind_address }}:{{ ports.cadvisor }}']

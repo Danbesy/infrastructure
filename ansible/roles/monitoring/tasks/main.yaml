@@ -1,3 +1,11 @@
+- name: Generate Monitoring docker-compose from template
+  ansible.builtin.template:
+    src: docker-compose.yaml.j2
+    dest: "{{ project_base_dir }}/monitoring/docker-compose.yaml"
+    mode: '0644'
+  become: true
+  notify: restart monitoring stack
+
 - name: Generate Prometheus config from template
   ansible.builtin.template:
     src: prometheus.yml.j2

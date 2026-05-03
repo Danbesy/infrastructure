@@ -1,0 +1,67 @@
+services:
+  grafana:
+    image: grafana/grafana-oss:13.0.1
+    container_name: grafana
+    restart: unless-stopped
+    volumes:
+      - grafana-storage:/var/lib/grafana
+    environment:
+      - GF_SERVER_HTTP_ADDR={{ public_bind_address }}
+      - GF_SERVER_HTTP_PORT={{ ports.grafana }}
+    network_mode: "host"
+
+  prometheus:
+    image: prom/prometheus:v3.11.3
+    container_name: prometheus
+    restart: unless-stopped
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.listen-address={{ public_bind_address }}:{{ ports.prometheus }}'
+      - '--storage.tsdb.retention.time=15d'
+    network_mode: "host"
+
+  node-exporter:
+    image: prom/node-exporter:v1
+    container_name: node-exporter
+    restart: unless-stopped
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--web.listen-address={{ monitoring_bind_address }}:{{ ports.node_exporter }}'
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--path.rootfs=/rootfs'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    network_mode: "host"
+
+  cadvisor:
+      image: gcr.io/cadvisor/cadvisor:v0.55.1
+      container_name: cadvisor
+      restart: unless-stopped
+      privileged: true
+      devices:
+        - /dev/kmsg:/dev/kmsg
+      volumes:
+        - /:/rootfs:ro
+        - /var/run:/var/run:ro
+        - /sys:/sys:ro
+        - /var/lib/docker/:/var/lib/docker:ro
+        - /dev/disk/:/dev/disk:ro
+        - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      command:
+        - '--listen_ip={{ monitoring_bind_address }}'
+        - '--port={{ ports.cadvisor }}'
+        - '--housekeeping_interval=15s'
+        - '--docker_only=true'
+        - '--v=2'
+      network_mode: "host"
+
+volumes:
+  grafana-storage:
+  prometheus-data:
