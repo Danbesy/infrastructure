@@ -16,7 +16,7 @@ services:
       -u root
       /etc/telegram/backend.conf
       --allow-skip-dh
-      --nat-info 172.21.0.10:{{ vault_mtproto_external_ip }}
+      --nat-info {{ mtproto_proxy_subnet }}:{{ vault_mtproto_external_ip }}
       -S {{ vault_mtproto_secret }} 
       -P {{ vault_mtproto_tag }}
       --domain {{ vault_mtproto_domain }}
@@ -24,7 +24,7 @@ services:
       - "1443:443"
     networks:
       mtproto-proxy-network:
-        ipv4_address: 172.21.0.10
+        ipv4_address: {{ mtproto_proxy_subnet }}.10
 
 networks:
   mtproto-proxy-network:
