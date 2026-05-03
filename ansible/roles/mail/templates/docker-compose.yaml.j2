@@ -1,0 +1,25 @@
+services:
+  stalwart-mail:
+    image: stalwartlabs/stalwart:v0.16.3
+    container_name: stalwart-mail
+    restart: unless-stopped
+    ports:
+      - "25:25"
+      - "465:465"
+      - "993:993"
+    volumes:
+      - ./stalwart_config:/etc/stalwart
+      - ./stalwart_data:/var/lib/stalwart
+    networks:
+      reverse-proxy-network:
+        ipv4_address: {{ reverse_proxy_subnet }}.10
+      mail-network:
+        ipv4_address: {{ mail_subnet }}.10
+
+networks:
+  reverse-proxy-network:
+    name: reverse-proxy-network
+    external: true
+  mail-network:
+    name: mail-network
+    external: true
