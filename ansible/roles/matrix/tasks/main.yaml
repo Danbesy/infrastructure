@@ -1,3 +1,11 @@
+- name: Generate Matrix docker-compose from template
+  ansible.builtin.template:
+    src: docker-compose.yaml.j2
+    dest: "{{ project_base_dir }}/matrix/docker-compose.yaml"
+    mode: '0644'
+  become: true
+  notify: restart matrix stack
+
 - name: Generate Dendrite config from template
   ansible.builtin.template:
     src: dendrite.yaml.j2

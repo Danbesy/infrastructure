@@ -1,0 +1,61 @@
+services:
+  dendrite-init:
+      image: matrixdotorg/dendrite-monolith:v0.15.2
+      container_name: dendrite-init
+      volumes:
+        - ./:/mnt
+      entrypoint: /bin/sh
+      command: >
+        -c "if [ ! -f /mnt/matrix_key.pem ]; then
+              /usr/bin/generate-keys --private-key /mnt/matrix_key.pem;
+              echo 'Ключ создан успешно';
+            else
+              echo 'Ключ уже существует, пропускаю...';
+            fi"
+
+  dendrite:
+    image: matrixdotorg/dendrite-monolith:v0.15.2
+    container_name: dendrite
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_started
+      dendrite-init:
+        condition: service_started
+    command: ["--config", "/etc/dendrite/dendrite.yaml"]
+    volumes:
+    - ./dendrite.yaml:/etc/dendrite/dendrite.yaml:ro
+    - ./matrix_key.pem:/etc/dendrite/matrix_key.pem:ro
+    - ./storage:/var/dendrite/
+    networks:
+      matrix-public-network:
+        ipv4_address: {{ matrix_public_subnet }}.10
+      matrix-private-network:
+        ipv4_address: {{ matrix_private_subnet }}.10
+      reverse-proxy-network:
+        ipv4_address: {{ reverse_proxy_subnet }}.20
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: {{ vault_matrix_postgres_user }}
+      POSTGRES_PASSWORD: {{ vault_matrix_postgres_password }}
+      POSTGRES_DB: {{ vault_matrix_postgres_db }}
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    networks:
+      matrix-private-network:
+        ipv4_address: {{ matrix_private_subnet }}.20
+
+networks:
+  matrix-public-network:
+    name: matrix-public-network
+    external: true
+  matrix-private-network:
+    name: matrix-private-network
+    external: true
+  reverse-proxy-network:
+    name: reverse-proxy-network
+    external: true
