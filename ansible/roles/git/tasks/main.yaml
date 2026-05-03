@@ -11,7 +11,7 @@
   ansible.builtin.git:
     repo: "{{ repo }}"
     dest: "{{ project_base_dir }}"
-    version: main
+    version: "{{ git_version | default('main') }}"
     force: yes
     recursive: yes
   become: false
