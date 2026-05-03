@@ -11,14 +11,14 @@ services:
       - ./stalwart_config:/etc/stalwart
       - ./stalwart_data:/var/lib/stalwart
     networks:
-      proxy-network:
+      reverse-proxy-network:
         ipv4_address: 172.20.0.10
       mail-network:
         ipv4_address: 172.24.0.10
 
 networks:
-  proxy-network:
-    name: proxy-network
+  reverse-proxy-network:
+    name: reverse-proxy-network
     external: true
   mail-network:
     name: mail-network

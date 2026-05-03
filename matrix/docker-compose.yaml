@@ -32,7 +32,7 @@ services:
         ipv4_address: 172.22.0.10
       matrix-private-network:
         ipv4_address: 172.23.0.10
-      proxy-network:
+      reverse-proxy-network:
         ipv4_address: 172.20.0.20
 
   postgres:
@@ -56,6 +56,6 @@ networks:
   matrix-private-network:
     name: matrix-private-network
     external: true
-  proxy-network:
-    name: proxy-network
+  reverse-proxy-network:
+    name: reverse-proxy-network
     external: true

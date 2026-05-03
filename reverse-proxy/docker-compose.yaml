@@ -26,12 +26,12 @@ services:
       # static content
       - ./reviews/:/var/www/reviews:ro
     networks:
-      proxy-network:
+      reverse-proxy-network:
         ipv4_address: 172.20.0.100
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
 networks:
-  proxy-network:
-    name: proxy-network
+  reverse-proxy-network:
+    name: reverse-proxy-network
     external: true

@@ -8,15 +8,15 @@ services:
     deploy:
       replicas: 0
     networks:
-      - proxy-network
+      - reverse-proxy-network
       - mtproto-proxy-network
       - matrix-public-network
       - matrix-private-network
       - mail-network
 
 networks:
-  proxy-network:
-    name: proxy-network
+  reverse-proxy-network:
+    name: reverse-proxy-network
     driver: bridge
     ipam:
       config:
