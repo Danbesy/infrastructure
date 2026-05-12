@@ -1,6 +1,6 @@
 services:
   mtproto-proxy:
-    image: telegrammessenger/proxy:2.0beta
+    image: {{ images.mtproto_proxy }}
     container_name: mtproto-proxy
     restart: unless-stopped
     volumes:
@@ -21,7 +21,7 @@ services:
       -P {{ vault_mtproto_tag }}
       --domain {{ vault_mtproto_domain }}
     ports:
-      - "1443:443"
+      - "{{ ports.mtproto_proxy }}:443"
     networks:
       mtproto-proxy-network:
         ipv4_address: {{ mtproto_proxy_subnet }}.10
