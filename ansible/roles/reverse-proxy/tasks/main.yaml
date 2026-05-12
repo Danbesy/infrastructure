@@ -6,11 +6,13 @@
   become: true
   notify: restart reverse-proxy stack
 
-- name: Generate Nginx config from template
+- name: Generate Nginx conf.d from template
   ansible.builtin.template:
-    src: nginx.conf.j2
-    dest: "{{ project_base_dir }}/reverse-proxy/nginx.conf"
+    src: "{{ item }}"
+    dest: "{{ project_base_dir }}/reverse-proxy/conf.d/{{ item | basename | regex_replace('\\.j2$', '') | regex_replace('\\.conf\\.d$', '.conf') }}"
     mode: '0644'
+  with_fileglob:
+    - "../templates/conf.d/*.j2"
   become: true
   notify: restart reverse-proxy stack
 
@@ -37,13 +39,13 @@
     mode: "{{ item.mode | default('0644') }}"
   become: true
   loop:
-    - { domain: 'danbesy.com', provider: 'cloudflare', file: 'cert.pem', tpl: 'cloudflare-danbesy.com-cert.pem.j2' }
-    - { domain: 'danbesy.com', provider: 'cloudflare', file: 'key.pem', tpl: 'cloudflare-danbesy.com-key.pem.j2', mode: '0640' }
-    - { domain: 'danbesy.com', provider: 'letsencrypt', file: 'fullchain.pem', tpl: 'letsencrypt-danbesy.com-fullchain.pem.j2' }
-    - { domain: 'danbesy.com', provider: 'letsencrypt', file: 'key.pem', tpl: 'letsencrypt-danbesy.com-key.pem.j2', mode: '0640' }
+    - { domain: 'danbesy.com', provider: 'cloudflare', file: 'cert.pem', tpl: 'certs/cloudflare-danbesy.com-cert.pem.j2' }
+    - { domain: 'danbesy.com', provider: 'cloudflare', file: 'key.pem', tpl: 'certs/cloudflare-danbesy.com-key.pem.j2', mode: '0640' }
+    - { domain: 'danbesy.com', provider: 'letsencrypt', file: 'fullchain.pem', tpl: 'certs/letsencrypt-danbesy.com-fullchain.pem.j2' }
+    - { domain: 'danbesy.com', provider: 'letsencrypt', file: 'key.pem', tpl: 'certs/letsencrypt-danbesy.com-key.pem.j2', mode: '0640' }
     
-    - { domain: 'danbesy.lol', provider: 'cloudflare', file: 'cert.pem', tpl: 'cloudflare-danbesy.lol-cert.pem.j2' }
-    - { domain: 'danbesy.lol', provider: 'cloudflare', file: 'key.pem', tpl: 'cloudflare-danbesy.lol-key.pem.j2', mode: '0640' }
+    - { domain: 'danbesy.lol', provider: 'cloudflare', file: 'cert.pem', tpl: 'certs/cloudflare-danbesy.lol-cert.pem.j2' }
+    - { domain: 'danbesy.lol', provider: 'cloudflare', file: 'key.pem', tpl: 'certs/cloudflare-danbesy.lol-key.pem.j2', mode: '0640' }
   notify: restart reverse-proxy stack
 
 - name: Start Reverse-Proxy stack with Docker Compose V2
