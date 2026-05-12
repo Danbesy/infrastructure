@@ -1,6 +1,6 @@
 services:
   dendrite-init:
-      image: matrixdotorg/dendrite-monolith:v0.15.2
+      image: {{ images.matrix_dendrite }}
       container_name: dendrite-init
       volumes:
         - ./:/mnt
@@ -14,7 +14,7 @@ services:
             fi"
 
   dendrite:
-    image: matrixdotorg/dendrite-monolith:v0.15.2
+    image: {{ images.matrix_dendrite }}
     container_name: dendrite
     restart: unless-stopped
     depends_on:
@@ -36,7 +36,7 @@ services:
         ipv4_address: {{ reverse_proxy_subnet }}.20
 
   postgres:
-    image: postgres:15-alpine
+    image: {{ images.matrix_postgres }}
     container_name: postgres
     restart: unless-stopped
     environment:
