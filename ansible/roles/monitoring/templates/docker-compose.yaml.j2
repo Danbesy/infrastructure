@@ -1,6 +1,6 @@
 services:
   grafana:
-    image: grafana/grafana-oss:13.0.1
+    image: {{ images.grafana }}
     container_name: grafana
     restart: unless-stopped
     volumes:
@@ -11,7 +11,7 @@ services:
     network_mode: "host"
 
   prometheus:
-    image: prom/prometheus:v3.11.3
+    image: {{ images.prometheus }}
     container_name: prometheus
     restart: unless-stopped
     volumes:
@@ -25,7 +25,7 @@ services:
     network_mode: "host"
 
   node-exporter:
-    image: prom/node-exporter:v1
+    image: {{ images.node_exporter }}
     container_name: node-exporter
     restart: unless-stopped
     volumes:
@@ -41,7 +41,7 @@ services:
     network_mode: "host"
 
   cadvisor:
-      image: gcr.io/cadvisor/cadvisor:v0.55.1
+      image: {{ images.cadvisor }}
       container_name: cadvisor
       restart: unless-stopped
       privileged: true
