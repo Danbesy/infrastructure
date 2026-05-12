@@ -11,5 +11,5 @@
     project_src: "{{ project_base_dir }}/mail"
     state: present
     pull: always
-    wait: true
+    wait: false
   become: true

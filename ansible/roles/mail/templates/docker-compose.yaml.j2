@@ -1,6 +1,6 @@
 services:
   stalwart-mail:
-    image: stalwartlabs/stalwart:v0.16.3
+    image: {{ images.mail_stalwart }}
     container_name: stalwart-mail
     restart: unless-stopped
     ports:
