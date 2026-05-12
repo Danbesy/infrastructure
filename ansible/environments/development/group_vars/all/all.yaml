@@ -23,11 +23,13 @@ ports:
   node_exporter: 29100
   cadvisor: 28080
 
-  panel: 9090
-  website: 8888
-  vpn_webpanel: 8338
-  mail_webpanel: 4884
-  matrix: 8008
+  mtproto_proxy: 2443
+  website: 28888
+
+  panel: 29090
+  vpn_webpanel: 28338
+  mail_webpanel: 24884
+  matrix: 28008
 
 domains:
   grafana: "dev-grafana.{{ main_domain_name }}"
@@ -39,3 +41,19 @@ domains:
   matrix: "dev-matrix.{{ main_domain_name }}"
   tg_redirect_com: "dev-tg.{{ main_domain_name }}"
   tg_redirect_lol: "dev-tg.{{ short_domain_name }}"
+
+images:
+  grafana: "grafana/grafana-oss:13.0.1"
+  prometheus: "prom/prometheus:v3.11.3"
+  node_exporter: "prom/node-exporter:v1"
+  cadvisor: "gcr.io/cadvisor/cadvisor:v0.55.1"
+
+  mail_stalwart: "stalwartlabs/stalwart:v0.16.3"
+
+  matrix_dendrite: "matrixdotorg/dendrite-monolith:v0.15.2"
+  matrix_postgres: "postgres:15-alpine"
+
+  mtproto_proxy: "telegrammessenger/proxy:2.0beta"
+
+  nginx: "nginx:stable-alpine3.23"
+  website: "danbesy/website:latest"
