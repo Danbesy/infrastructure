@@ -1,0 +1,7 @@
+http://:{{ ports.caddy }} {
+    root * /srv
+    file_server browse
+    encode gzip zstd
+
+    header Access-Control-Allow-Origin "*"
+}

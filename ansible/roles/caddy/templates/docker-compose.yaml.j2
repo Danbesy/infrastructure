@@ -1,0 +1,21 @@
+services:
+  caddy:
+    image: {{ images.caddy }}
+    restart: unless-stopped
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./data:/srv
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      reverse-proxy-network:
+        ipv4_address: {{ reverse_proxy_subnet }}.30
+
+networks:
+  reverse-proxy-network:
+    name: reverse-proxy-network
+    external: true
+
+volumes:
+  caddy_data:
+  caddy_config:

@@ -1,0 +1,23 @@
+- name: Generate Caddy docker-compose from template
+  ansible.builtin.template:
+    src: docker-compose.yaml.j2
+    dest: "{{ project_base_dir }}/caddy/docker-compose.yaml"
+    mode: '0644'
+  become: true
+  notify: restart caddy stack
+
+- name: Generate Caddyfile from template
+  ansible.builtin.template:
+    src: Caddyfile.j2
+    dest: "{{ project_base_dir }}/caddy/Caddyfile"
+    mode: '0644'
+  become: true
+  notify: restart caddy stack
+
+- name: Start Caddy stack with Docker Compose V2
+  community.docker.docker_compose_v2:
+    project_src: "{{ project_base_dir }}/caddy"
+    state: present
+    pull: always
+    wait: false
+  become: true

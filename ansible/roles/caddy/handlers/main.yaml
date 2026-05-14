@@ -1,0 +1,5 @@
+- name: restart caddy stack
+  community.docker.docker_compose_v2:
+    project_src: "{{ project_base_dir }}/caddy"
+    state: present
+  become: true
