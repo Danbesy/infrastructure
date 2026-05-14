@@ -26,6 +26,7 @@ ports:
   mtproto_proxy: 1443
   website: 18888
 
+  caddy: 15050
   panel: 19090
   vpn_webpanel: 18338
   mail_webpanel: 14884
@@ -33,9 +34,10 @@ ports:
 
 domains:
   grafana: "grafana.{{ main_domain_name }}"
-  reviews: "reviews.{{ main_domain_name }}"
-  panel: "panel.{{ main_domain_name }}"
   website: "{{ main_domain_name }}"
+  caddy: "cloud.{{ main_domain_name }}"
+  panel: "panel.{{ main_domain_name }}"
+  reviews: "reviews.{{ main_domain_name }}"
   vpn_webpanel: "vpn.{{ main_domain_name }}"
   mail_webpanel: "mail.{{ main_domain_name }}"
   matrix: "matrix.{{ main_domain_name }}"
@@ -57,3 +59,5 @@ images:
 
   nginx: "nginx:stable-alpine3.23"
   website: "danbesy/website:latest"
+
+  caddy: "caddy:2.11.3-alpine"
