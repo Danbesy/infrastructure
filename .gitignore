@@ -21,3 +21,8 @@ inventory.ini
 
 # monitoring
 prometheus.yml
+
+# caddy
+**/caddy/data/
+caddy_data/
+caddy_config/
