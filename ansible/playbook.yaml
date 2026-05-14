@@ -13,4 +13,5 @@
     - { role: monitoring, tags: ['monitoring'] }
     - { role: mtproto-proxy, tags: ['mtproto-proxy'] }
     - { role: website, tags: ['website'] }
+    - { role: caddy, tags: ['caddy'] }
     - { role: reverse-proxy, tags: ['reverse-proxy'] }
