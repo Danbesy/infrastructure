@@ -8,8 +8,15 @@ Select your preferred language for documentation:
 * 🇷🇺 **[Русская документация](docs/README_RU.md)**
 
 ## 🚀 Quick Start (Short)
+### Clone the repository and enter the project directory
 ```bash
 git clone https://github.com/Danbesy/infrastructure.git
-cd infrastructure
+```
+### Initialize the server and deploy configurations via Ansible
+```bash
+ansible-playbook -i environments/development/inventory.ini playbook.yaml -k -K
+```
+### Set permissions and run the script to start or restart all services
+```bash
 chmod +x start.sh && ./start.sh
 ```
