@@ -32,8 +32,12 @@ ports:
   mail_webpanel: 14884
   matrix: 18008
 
+  vpn_main: 3883
+  vpn_alt: 8443
+
 domains:
   grafana: "grafana.{{ main_domain_name }}"
+  mtproto_proxy: "proxy.{{ main_domain_name }}"
   website: "{{ main_domain_name }}"
   caddy: "cloud.{{ main_domain_name }}"
   panel: "panel.{{ main_domain_name }}"
