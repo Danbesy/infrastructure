@@ -1,0 +1,3 @@
+vault_matrix_postgres_user: POSTGRES_USER
+vault_matrix_postgres_password: POSTGRES_PASSWORD
+vault_matrix_postgres_db: POSTGRES_DB

@@ -1,0 +1,2 @@
+vault_docker_username: DOCKER_USERNAME
+vault_docker_password: DOCKER_KEY

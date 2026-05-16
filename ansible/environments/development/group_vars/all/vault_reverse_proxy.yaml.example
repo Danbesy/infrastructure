@@ -1,0 +1,35 @@
+vault_allowed_ip: 127.0.0.1
+
+vault_letsencrypt_danbesy_com_fullchain: |
+  -----BEGIN CERTIFICATE-----
+
+  -----END CERTIFICATE-----
+
+vault_letsencrypt_danbesy_com_key: |
+  -----BEGIN EC PRIVATE KEY-----
+
+  -----END EC PRIVATE KEY-----
+
+  -----BEGIN CERTIFICATE-----
+
+  -----END CERTIFICATE-----
+
+vault_cloudflare_danbesy_com_cert: |
+  -----BEGIN CERTIFICATE-----
+
+  -----END CERTIFICATE-----
+
+vault_cloudflare_danbesy_com_key: |
+  -----BEGIN PRIVATE KEY-----
+
+  -----END PRIVATE KEY-----
+
+vault_cloudflare_danbesy_lol_cert: |
+  -----BEGIN CERTIFICATE-----
+
+  -----END CERTIFICATE-----
+
+vault_cloudflare_danbesy_lol_key: |
+  -----BEGIN PRIVATE KEY-----
+
+  -----END PRIVATE KEY-----

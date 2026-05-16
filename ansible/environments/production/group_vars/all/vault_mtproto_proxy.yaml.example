@@ -1,0 +1,4 @@
+vault_mtproto_external_ip: 127.0.0.1
+vault_mtproto_secret: MTPROTO_SECRET (openssl rand -hex 16)
+vault_mtproto_tag: MTPROTO_TAG
+vault_mtproto_domain: google.com
