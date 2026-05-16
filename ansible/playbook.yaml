@@ -3,6 +3,7 @@
   gather_facts: true
   roles:
     - { role: bootstrap, tags: ['bootstrap'] }
+    - { role: firewall, tags: ['firewall'] }
     - { role: docker, tags: ['docker'], become: true }
     - { role: git, tags: ['git'] }
     - { role: infra, tags: ['infra'] }

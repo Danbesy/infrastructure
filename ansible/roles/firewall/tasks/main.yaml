@@ -1,0 +1,87 @@
+- name: Install iptables-persistent to save rules
+  ansible.builtin.apt:
+    name: iptables-persistent
+    state: present
+    update_cache: true
+
+- name: Allow established and related connections
+  ansible.builtin.iptables:
+    chain: INPUT
+    ctstate: ESTABLISHED,RELA
+    jump: ACCEPT
+
+- name: Allow localhost
+  ansible.builtin.iptables:
+    chain: INPUT
+    in_interface: lo
+    jump: ACCEPT
+
+- name: Apply iptables rules
+  ansible.builtin.iptables:
+    chain: "{{ item.chain }}"
+    protocol: "{{ item.proto | default('tcp') }}"
+    destination_port: "{{ item.port | default(omit) }}"
+    source: "{{ item.source | default(omit) }}"
+    ctstate: "{{ item.state | default(omit) }}"
+    jump: "{{ item.jump | default('ACCEPT') }}"
+  loop:
+    - { chain: 'INPUT', state: 'ESTABLISHED,RELATED' } 
+    - { chain: 'INPUT', port: '22' }
+    - { chain: 'INPUT', port: '80' }
+    - { chain: 'INPUT', port: '443' }
+
+    - { chain: 'INPUT', port: '{{ ports.panel }}'}
+
+    - { chain: 'INPUT', port: '{{ ports.vpn_webpanel }}'}    
+    - { chain: 'INPUT', port: '{{ ports.vpn_main }}'}
+    - { chain: 'INPUT', port: '{{ ports.vpn_alt }}'}
+    - { chain: 'INPUT', port: '{{ ports.mtproto_proxy }}'}
+
+- name: Allow trusted IPs to Grafana
+  ansible.builtin.iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: "{{ ports.grafana }}"
+    source: "{{ item }}"
+    jump: ACCEPT
+  loop: "{{ vault_trusted_ips }}"
+
+- name: Allow Nginx subnet to Grafana
+  ansible.builtin.iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: "{{ ports.grafana }}"
+    source: "{{ reverse_proxy_subnet }}.0/24"
+    jump: ACCEPT
+
+- name: Drop all other traffic to Grafana
+  ansible.builtin.iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: "{{ ports.grafana }}"
+    jump: DROP
+
+- name: Allow trusted IPs to Prometheus
+  ansible.builtin.iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: "{{ ports.prometheus }}"
+    source: "{{ item }}"
+    jump: ACCEPT
+  loop: "{{ vault_trusted_ips }}"
+
+- name: Drop all other traffic to Prometheus
+  ansible.builtin.iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: "{{ ports.prometheus }}"
+    jump: DROP
+
+- name: Apply the default DROP policy for incoming traffic
+  ansible.builtin.iptables:
+    chain: INPUT
+    policy: DROP
+
+- name: Saving current iptables rules to disk
+  ansible.builtin.command: netfilter-persistent save
+  changed_when: true
