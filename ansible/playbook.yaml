@@ -1,8 +1,6 @@
 - name: Setup Infrastructure
   hosts: all
   gather_facts: true
-  vars_files:
-    - vars/global/vault.yaml
   roles:
     - { role: bootstrap, tags: ['bootstrap'] }
     - { role: docker, tags: ['docker'], become: true }
